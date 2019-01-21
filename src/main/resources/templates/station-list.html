@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="/include/head"></head>
+<body class="layui-anim layui-anim-up">
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">站点管理</a>
+        <a><cite>站点列表</cite></a>
+      </span>
+</div>
+<div class="x-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so">
+            <input class="layui-input" placeholder="开始日" name="start" id="start">
+            <input class="layui-input" placeholder="截止日" name="end" id="end">
+            <input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+    </div>
+    <xblock>
+        <button class="layui-btn layui-btn-danger layui-btn-sm" onclick="delAll()"><i class="layui-icon"></i>批量删除
+        </button>
+        <button class="layui-btn layui-btn-sm" onclick="x_admin_show('添加用户','./member-add.html',600,400)"><i class="layui-icon"></i>添加</button>
+    </xblock>
+    <table id="test-table-page" class="layui-table"></table>
+</div>
+<script th:inline="javascript">
+    layui.use(['laydate', 'table'], function () {
+        var laydate = layui.laydate;
+        var table = layui.table;
+        table.render({
+            elem: '#test-table-page'
+            ,url: 'member'
+            ,page: { //支持传入 laypage 组件的所有参数（某些参数除外，如：jump/elem） - 详见文档
+                layout: ['limit', 'count', 'prev', 'page', 'next', 'skip'] //自定义分页布局
+                //,curr: 5 //设定初始在第 5 页
+                ,groups: 3 //只显示 1 个连续页码
+                ,first: true //不显示首页
+                ,last: true //不显示尾页
+
+            }
+            ,cols: [
+                [
+                    {field:'id', width:80, title: 'ID', sort: true}
+                    ,{field:'username', width:100, title: '用户名'}
+                    ,{field:'sex', width:80, title: '性别', sort: true}
+                    ,{field:'city', width:80, title: '城市'}
+                    ,{field:'sign', title: '签名', minWidth: 150}
+                    ,{field:'experience', width:80, title: '积分', sort: true}
+                    ,{field:'score', width:80, title: '评分', sort: true}
+                    ,{field:'classify', width:80, title: '职业'}
+                    ,{field:'wealth', width:135, title: '财富', sort: true}
+                ]
+            ]
+            ,page: true
+        });
+
+        var $ = layui.$, active = {
+            reload: function(){
+                var demoReload = $('#test-table-page');
+
+                //执行重载
+                table.reload('test-table-page', {
+                    page: {
+                        curr: 1 //重新从第 1 页开始
+                    }
+                    ,where: {
+                        key: {
+                            id: demoReload.val()
+                        }
+                    }
+                });
+            }
+        };
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+    });
+
+    /*用户-停用*/
+    function member_stop(obj, id) {
+        layer.confirm('确认要停用吗？', function (index) {
+
+            if ($(obj).attr('title') == '启用') {
+
+                //发异步把用户状态进行更改
+                $(obj).attr('title', '停用')
+                $(obj).find('i').html('&#xe62f;');
+
+                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                layer.msg('已停用!', {icon: 5, time: 1000});
+
+            } else {
+                $(obj).attr('title', '启用')
+                $(obj).find('i').html('&#xe601;');
+
+                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                layer.msg('已启用!', {icon: 5, time: 1000});
+            }
+
+        });
+    }
+
+    /*用户-删除*/
+    function member_del(obj, id) {
+        layer.confirm('确认要删除吗？', function (index) {
+            //发异步删除数据
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!', {icon: 1, time: 1000});
+        });
+    }
+
+    function delAll(argument) {
+        var data = tableCheck.getData();
+        layer.confirm('确认要删除吗？' + data, function (index) {
+            //捉到所有被选中的，发异步进行删除
+            layer.msg('删除成功', {icon: 1});
+            $(".layui-form-checked").not('.header').parents('tr').remove();
+        });
+    }
+</script>
+</body>
+</html>
