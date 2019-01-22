@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="/include/head"></head>
+<body class="layui-anim layui-anim-up">
+<div class="x-nav">
+      <span class="layui-breadcrumb">
+        <a href="">首页</a>
+        <a href="">演示</a>
+        <a><cite>导航元素</cite></a>
+      </span>
+</div>
+<div class="x-body">
+    <div class="layui-row">
+        <form class="layui-form layui-col-md12 x-so">
+            <input class="layui-input" placeholder="开始日" name="start" id="start">
+            <input class="layui-input" placeholder="截止日" name="end" id="end">
+            <input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input">
+            <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+        </form>
+    </div>
+    <xblock>
+        <button class="layui-btn" onclick="x_admin_show('建仓','./member-add.html',600,400)"><i class="layui-icon"></i>建仓
+        </button>
+    </xblock>
+    <table class="layui-table">
+        <thead>
+        <tr>
+            <th>
+                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary">
+                    <i class="layui-icon">&#xe605;</i>
+                </div>
+            </th>
+            <th>ID</th>
+            <th>品种</th>
+            <th>方向</th>
+            <th>开仓点位</th>
+            <th>开仓时间</th>
+            <th>平仓点位</th>
+            <th>平仓时间</th>
+            <th>手续费</th>
+            <th>盈亏</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div></td>
+            <td>1</td>
+            <td>小明</td>
+            <td>男</td>
+            <td>男</td>
+            <td>13000000000</td>
+            <td>admin@mail.com</td>
+            <td>北京市 海淀区</td>
+            <td>2017-01-01 11:11:42</td>
+            <td class="td-status">999999</td>
+            <td class="td-manage"><span class="layui-btn layui-btn-normal layui-btn-mini">平仓</span></td>
+        </tr>
+        </tbody>
+    </table>
+    <div class="page">
+        <div>
+            <a class="prev" href="">&lt;&lt;</a>
+            <a class="num" href="">1</a>
+            <span class="current">2</span>
+            <a class="num" href="">3</a>
+            <a class="num" href="">489</a>
+            <a class="next" href="">&gt;&gt;</a>
+        </div>
+    </div>
+</div>
+<script>
+    layui.use('laydate','', function () {
+        var laydate = layui.laydate;
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+            elem: '#end' //指定元素
+        });
+    });
+</script>
+</body>
+</html>

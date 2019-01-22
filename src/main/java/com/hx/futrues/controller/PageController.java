@@ -12,9 +12,9 @@ public class PageController {
         return model;
     }
 
-    @GetMapping("admin-list")
-    public ModelAndView adminList(ModelAndView model) {
-        model.setViewName("member-list");
+    @GetMapping("order-list")
+    public ModelAndView orderList(ModelAndView model) {
+        model.setViewName("order-list");
         return model;
     }
 }
