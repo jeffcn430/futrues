@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="/include/head"></head>
+<body>
+<div class="x-body">
+    <form class="layui-form">
+        <div class="layui-form-item">
+            <label for="type" class="layui-form-label">
+                <span class="x-red">*</span>品种
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="type" name="type" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="startPoint" class="layui-form-label">
+                <span class="x-red">*</span>开仓点位
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="startPoint" name="startPoint" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="bbi" class="layui-form-label">
+                <span class="x-red">*</span>方向
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="bbi" name="bbi" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="startTime" class="layui-form-label">
+                <span class="x-red">*</span>开仓时间
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="startTime" name="startTime" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input" value="1984/11/11 11:11:11">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <!--<label for="L_repass" class="layui-form-label"></label>-->
+            <button  class="layui-btn" lay-filter="add" lay-submit="">
+                增加
+            </button>
+        </div>
+    </form>
+</div>
+<script>
+    layui.use(['form', 'layer'], function () {
+        $ = layui.jquery;
+        var form = layui.form, layer = layui.layer;
+
+        //自定义验证规则
+        form.verify({
+            // nikename: function (value) {
+            //     if (value.length < 5) {
+            //         return '昵称至少得5个字符啊';
+            //     }
+            // }
+            // , pass: [/(.+){6,12}$/, '密码必须6到12位']
+            // , repass: function (value) {
+            //     if ($('#L_pass').val() != $('#L_repass').val()) {
+            //         return '两次密码不一致';
+            //     }
+            // }
+        });
+
+        //监听提交
+        form.on('submit(add)', function (data) {
+            // $.post("/orders/openingTransaction", data, function(data){
+            //     if(data.code = 0){
+            //         layer.alert("增加成功", {icon: 6}, function () {
+            //             // 获得frame索引
+            //             var index = parent.layer.getFrameIndex(window.name);
+            //             //关闭当前frame
+            //             parent.layer.close(index);
+            //         });
+            //     }else{
+            //         layer.alert(data.msg, {icon: 5}, function () { });
+            //     }
+            // }, "json");
+            $.post("/orders/openingTransaction",data.field,function(res){
+                if(res.code == 0){
+                    layer.alert("确定添加", function () {
+                        // 弹出成功提示
+                        parent.layer.msg(res.msg, {icon: 6, time: 2000});
+                        // 刷新表格
+                        parent.layui.table.reload('orders-table-page',{page:{curr:1}});
+                        // 获得frame索引
+                        var index = parent.layer.getFrameIndex(window.name);
+                        //关闭当前frame
+                        parent.layer.close(index);
+                    });
+                }else{
+                    // 弹出失败提示
+                    layer.msg(res.msg, {time: 2000});
+                }
+            },'json');
+            return false;
+        });
+
+        //表刷新方法
+        var reloadTable = function (item) {
+            table.reload("listReload", { //此处是上文提到的 初始化标识id
+                where: {
+                    //key: { //该写法上文已经提到
+                    type: item.type, id: item.id
+                    //}
+                }
+            });
+        };
+    });
+</script>
+<script>var _hmt = _hmt || [];
+(function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+})();</script>
+</body>
+
+</html>

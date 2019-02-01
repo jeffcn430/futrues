@@ -10,7 +10,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 /**
  * 订单明细
@@ -34,14 +33,13 @@ public class Orders implements Serializable {
      */
     private Integer bbi;
     /**
-     * 建仓时间时间
+     * 建仓时间
      */
-    private LocalDateTime startTime;
+    private String startTime;
     /**
      * 平仓时间
      */
-    private LocalDateTime endTime;
-
+    private String endTime;
     /**
      * 开仓点位
      */
@@ -70,7 +68,7 @@ public class Orders implements Serializable {
      * @param startTime  开仓时间
      * @param startPoint 开仓点位
      */
-    public Orders(Integer bbi, Integer type, LocalDateTime startTime, BigDecimal startPoint) {
+    public Orders(Integer bbi, Integer type, String startTime, BigDecimal startPoint) {
         this.type = type;
         this.startTime = startTime;
         this.startPoint = startPoint;
@@ -81,7 +79,7 @@ public class Orders implements Serializable {
      *
      * @return
      */
-    public boolean offsetTransaction(BigDecimal endPoint, LocalDateTime endTime) {
+    public boolean offsetTransaction(BigDecimal endPoint, String endTime) {
         this.endPoint = endPoint;
         this.endTime = endTime;
         this.status = 1;

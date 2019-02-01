@@ -16,4 +16,8 @@ public class Variety {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    /**
+     * 品种名称
+     */
+    private String name;
 }

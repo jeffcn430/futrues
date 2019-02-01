@@ -1,10 +1,11 @@
 package com.hx.futrues.utils;
 
 import lombok.Data;
+import org.hibernate.query.criteria.internal.expression.function.AggregationFunction;
 
 @Data
 public class ResultData {
-    private static final String SESS = "成功";
+    private static final String SUCCESS = "成功";
 
     /**
      * 状态
@@ -19,9 +20,11 @@ public class ResultData {
      */
     public Object data;
 
+    private int count;
+
     public ResultData() {
-        this.code = 1;
-        this.msg = SESS;
+        this.code = 0;
+        this.msg = SUCCESS;
     }
 
     public ResultData(Integer code, String msg) {

@@ -5,8 +5,8 @@
 <div class="x-nav">
       <span class="layui-breadcrumb">
         <a href="">首页</a>
-        <a href="">演示</a>
-        <a><cite>导航元素</cite></a>
+        <a href="">仓位管理</a>
+        <a><cite>仓位列表</cite></a>
       </span>
 </div>
 <div class="x-body">
@@ -19,68 +19,33 @@
         </form>
     </div>
     <xblock>
-        <button class="layui-btn" onclick="x_admin_show('建仓','./member-add.html',600,400)"><i class="layui-icon"></i>建仓
-        </button>
+        <button class="layui-btn" onclick="x_admin_show('建仓','order-add',600,400)"><i class="layui-icon"></i>建仓</button>
     </xblock>
-    <table class="layui-table">
-        <thead>
-        <tr>
-            <th>
-                <div class="layui-unselect header layui-form-checkbox" lay-skin="primary">
-                    <i class="layui-icon">&#xe605;</i>
-                </div>
-            </th>
-            <th>ID</th>
-            <th>品种</th>
-            <th>方向</th>
-            <th>开仓点位</th>
-            <th>开仓时间</th>
-            <th>平仓点位</th>
-            <th>平仓时间</th>
-            <th>手续费</th>
-            <th>盈亏</th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td><div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div></td>
-            <td>1</td>
-            <td>小明</td>
-            <td>男</td>
-            <td>男</td>
-            <td>13000000000</td>
-            <td>admin@mail.com</td>
-            <td>北京市 海淀区</td>
-            <td>2017-01-01 11:11:42</td>
-            <td class="td-status">999999</td>
-            <td class="td-manage"><span class="layui-btn layui-btn-normal layui-btn-mini">平仓</span></td>
-        </tr>
-        </tbody>
-    </table>
-    <div class="page">
-        <div>
-            <a class="prev" href="">&lt;&lt;</a>
-            <a class="num" href="">1</a>
-            <span class="current">2</span>
-            <a class="num" href="">3</a>
-            <a class="num" href="">489</a>
-            <a class="next" href="">&gt;&gt;</a>
-        </div>
-    </div>
+    <table id="orders-table-page" class="layui-table"></table>
 </div>
 <script>
-    layui.use('laydate','', function () {
+    layui.use(['laydate', 'table'], function () {
         var laydate = layui.laydate;
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#start' //指定元素
-        });
-
-        //执行一个laydate实例
-        laydate.render({
-            elem: '#end' //指定元素
+        var table = layui.table;
+        table.render({
+            elem: '#orders-table-page'
+            , url: 'orders'
+            , cols: [
+                [
+                    {field: 'id', width: 80, title: 'ID'}
+                    , {field: 'type', width: 100, title: '品种'}
+                    , {field: 'bbi', width: 80, title: '方向'}
+                    , {field: 'startPoint', width: 200, title: '开仓点位'}
+                    , {field: 'startTime', width: 200, title: '开仓时间'}
+                    , {field: 'endPoint', width: 200, title: '平仓点位'}
+                    , {field: 'endTime', width: 200, title: '平仓时间'}
+                    , {field: 'loss', width: 80, title: '盈亏'}
+                    , {field: 'classify', width: 80, title: '手续费'}
+                    , {field: 'loss', width: 135, title: '盈亏'}
+                    , {field: 'status', width: 135, title: '操作'}
+                ]
+            ]
+            , page: true
         });
     });
 </script>
