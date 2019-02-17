@@ -5,38 +5,29 @@
 <div class="x-body">
     <form class="layui-form">
         <div class="layui-form-item">
-            <label for="type" class="layui-form-label">
-                <span class="x-red">*</span>品种
+            <label for="orderId" class="layui-form-label">
+                <span class="x-red">*</span>id
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="type" name="type" required="" lay-verify="required"
+                <input type="text" id="orderId" name="orderId" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="startPoint" class="layui-form-label">
-                <span class="x-red">*</span>开仓点位
+            <label for="endPoint" class="layui-form-label">
+                <span class="x-red">*</span>平仓点位
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="startPoint" name="startPoint" required="" lay-verify="required"
+                <input type="text" id="endPoint" name="endPoint" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="bbi" class="layui-form-label">
-                <span class="x-red">*</span>方向
+            <label for="endTime" class="layui-form-label">
+                <span class="x-red">*</span>平仓时间
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="bbi" name="bbi" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label for="startTime" class="layui-form-label">
-                <span class="x-red">*</span>开仓时间
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="startTime" name="startTime" required="" lay-verify="required"
+                <input type="text" id="endTime" name="endTime" required="" lay-verify="required"
                        autocomplete="off" class="layui-input" value="1984/11/11 11:11:11">
             </div>
         </div>
@@ -70,7 +61,7 @@
 
         //监听提交
         form.on('submit(add)', function (data) {
-            $.post("/orders/openingTransaction",data.field,function(res){
+            $.post("/orders/offsetTransaction",data.field,function(res){
                 if(res.code == 0){
                     layer.alert("确定添加", function () {
                         // 弹出成功提示
@@ -102,13 +93,5 @@
         };
     });
 </script>
-<script>var _hmt = _hmt || [];
-(function () {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();</script>
 </body>
-
 </html>

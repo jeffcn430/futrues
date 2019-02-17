@@ -41,4 +41,16 @@ public class PageController {
         model.setViewName("order-add");
         return model;
     }
+
+    /**
+     * 平仓页面
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping("order-offset")
+    public ModelAndView orderOffset(ModelAndView model) {
+        model.setViewName("order-offset");
+        return model;
+    }
 }

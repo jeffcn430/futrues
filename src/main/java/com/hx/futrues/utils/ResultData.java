@@ -19,7 +19,9 @@ public class ResultData {
      * 返回数据
      */
     public Object data;
-
+    /**
+     * 返回数据数量
+     */
     private int count;
 
     public ResultData() {
@@ -32,9 +34,10 @@ public class ResultData {
         this.msg = msg;
     }
 
-    public ResultData(Integer code, String msg, Object data) {
+    public ResultData(Integer code, String msg, Object data, int count) {
         this.code = code;
         this.msg = msg;
         this.data = data;
+        this.count = count;
     }
 }

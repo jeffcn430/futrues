@@ -10,16 +10,16 @@
       </span>
 </div>
 <div class="x-body">
-    <div class="layui-row">
-        <form class="layui-form layui-col-md12 x-so">
-            <input class="layui-input" placeholder="开始日" name="start" id="start">
-            <input class="layui-input" placeholder="截止日" name="end" id="end">
-            <input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input">
-            <button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-        </form>
-    </div>
+    <!--<div class="layui-row">-->
+        <!--<form class="layui-form layui-col-md12 x-so">-->
+            <!--<input class="layui-input" placeholder="开始日" name="start" id="start">-->
+            <!--<input class="layui-input" placeholder="截止日" name="end" id="end">-->
+            <!--<input type="text" name="username" placeholder="请输入用户名" autocomplete="off" class="layui-input">-->
+            <!--<button class="layui-btn" lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>-->
+        <!--</form>-->
+    <!--</div>-->
     <xblock>
-        <button class="layui-btn" onclick="x_admin_show('建仓','order-add',600,400)"><i class="layui-icon"></i>建仓</button>
+        <button class="layui-btn" onclick="x_admin_show('建仓','order-add', 600, 400)"><i class="layui-icon"></i>建仓</button>
     </xblock>
     <table id="orders-table-page" class="layui-table"></table>
 </div>
@@ -39,15 +39,20 @@
                     , {field: 'startTime', width: 200, title: '开仓时间'}
                     , {field: 'endPoint', width: 200, title: '平仓点位'}
                     , {field: 'endTime', width: 200, title: '平仓时间'}
-                    , {field: 'loss', width: 80, title: '盈亏'}
-                    , {field: 'classify', width: 80, title: '手续费'}
-                    , {field: 'loss', width: 135, title: '盈亏'}
-                    , {field: 'status', width: 135, title: '操作'}
+                    , {field: 'classify', width: 200, title: '手续费'}
+                    , {field: 'loss', width: 200, title: '盈亏'}
+                    , {field: 'status', width: 130, title: '操作', templet: '#checkboxTpl'}
                 ]
             ]
             , page: true
+            , even: true
         });
     });
+</script>
+
+<!-- 表格内部平仓按钮-->
+<script type="text/html" id="checkboxTpl">
+    <a class="layui-btn layui-btn-xs" lay-event="edit" onclick="x_admin_show('平仓','order-offset', 600, 400)">平仓</a>
 </script>
 </body>
 </html>

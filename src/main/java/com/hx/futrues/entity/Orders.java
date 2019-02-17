@@ -25,6 +25,10 @@ public class Orders implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     /**
+     * 交易平台
+     */
+    private int platform;
+    /**
      * 品种
      */
     private Integer type;
@@ -69,6 +73,7 @@ public class Orders implements Serializable {
      * @param startPoint 开仓点位
      */
     public Orders(Integer bbi, Integer type, String startTime, BigDecimal startPoint) {
+        this.platform = platform;
         this.type = type;
         this.startTime = startTime;
         this.startPoint = startPoint;
