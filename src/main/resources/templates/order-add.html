@@ -9,8 +9,7 @@
                 <span class="x-red">*</span>平台
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="platform" name="platform" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                <input type="text" id="platform" name="platform" required="" lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -18,8 +17,7 @@
                 <span class="x-red">*</span>品种
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="type" name="type" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                <input type="text" id="type" name="type" required="" lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -27,8 +25,7 @@
                 <span class="x-red">*</span>方向
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="bbi" name="bbi" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                <input type="text" id="bbi" name="bbi" required="" lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -36,8 +33,7 @@
                 <span class="x-red">*</span>开仓点位
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="startPoint" name="startPoint" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                <input type="text" id="startPoint" name="startPoint" required="" lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -45,8 +41,7 @@
                 <span class="x-red">*</span>开仓数量
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="number" name="number" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input">
+                <input type="text" id="number" name="number" required="" lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
@@ -54,22 +49,25 @@
                 <span class="x-red">*</span>开仓时间
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="startTime" name="startTime" required="" lay-verify="required"
-                       autocomplete="off" class="layui-input" value="1984/11/11 11:11:11">
+                <input type="text" id="startTime" name="startTime" required="" lay-verify="required" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <!--<label for="L_repass" class="layui-form-label"></label>-->
-            <button  class="layui-btn" lay-filter="add" lay-submit="">
-                增加
-            </button>
+            <button  class="layui-btn" lay-filter="add" lay-submit="">建仓</button>
         </div>
     </form>
 </div>
 <script>
-    layui.use(['form', 'layer'], function () {
+    layui.use(['form', 'layer', 'laydate'], function () {
         $ = layui.jquery;
         var form = layui.form, layer = layui.layer;
+
+        //执行一个laydate实例
+        layui.laydate.render({
+            elem: '#startTime' //指定元素
+            ,isInitValue: false
+            ,value: new Date()
+        });
 
         //自定义验证规则
         form.verify({
