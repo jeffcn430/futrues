@@ -6,6 +6,7 @@ import org.hibernate.query.criteria.internal.expression.function.AggregationFunc
 @Data
 public class ResultData {
     private static final String SUCCESS = "成功";
+    private static final String FAIL = "失败";
 
     /**
      * 状态

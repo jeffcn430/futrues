@@ -27,8 +27,8 @@ public class OrdersServiceImpl implements IOrdersService {
     }
 
     @Override
-    public boolean openingTransaction(Integer type, Integer bbi, BigDecimal startPoint, String time) {
-        Orders orders = new Orders(type, bbi, time, startPoint);
+    public boolean openingTransaction(Integer platform, Integer type, Integer bbi, Integer number, BigDecimal startPoint, String time) {
+        Orders orders = new Orders(platform, type, bbi, number, time, startPoint, new BigDecimal(36));
         this.ordersRepository.save(orders);
         return true;
     }
@@ -36,7 +36,10 @@ public class OrdersServiceImpl implements IOrdersService {
     @Override
     public boolean offsetTransaction(Integer id, BigDecimal endPoint, String endTime) {
         Orders orders = this.ordersRepository.getOne(id);
-        orders.offsetTransaction(endPoint, endTime);
+//        if (orders.getStatus() == 1) {
+//            return false;
+//        }
+        orders.offsetTransaction(endPoint, endTime, new BigDecimal(36));
         this.ordersRepository.save(orders);
         return true;
     }

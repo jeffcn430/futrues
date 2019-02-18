@@ -1,6 +1,5 @@
 package com.hx.futrues.entity;
 
-
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -18,6 +17,8 @@ import java.math.BigDecimal;
 @Entity
 @Table
 public class Orders implements Serializable {
+    private final BigDecimal POUNDAGE_X = new BigDecimal(2);
+
     /**
      * 订单编号
      */
@@ -37,6 +38,10 @@ public class Orders implements Serializable {
      */
     private Integer bbi;
     /**
+     * 数量
+     */
+    private int number;
+    /**
      * 建仓时间
      */
     private String startTime;
@@ -53,6 +58,10 @@ public class Orders implements Serializable {
      */
     private BigDecimal endPoint;
     /**
+     * 手续费
+     */
+    private BigDecimal poundage;
+    /**
      * 盈亏
      */
     private BigDecimal loss;
@@ -68,26 +77,45 @@ public class Orders implements Serializable {
     /**
      * 开仓
      *
+     * @param platform   平台
+     * @param bbi        方向
      * @param type       品种
+     * @param number     数量
      * @param startTime  开仓时间
      * @param startPoint 开仓点位
+     * @param poundage   手续费
      */
-    public Orders(Integer bbi, Integer type, String startTime, BigDecimal startPoint) {
+    public Orders(Integer platform, Integer bbi, Integer type, Integer number, String startTime, BigDecimal startPoint, BigDecimal poundage) {
         this.platform = platform;
+        this.bbi = bbi;
         this.type = type;
+        this.number = number;
         this.startTime = startTime;
         this.startPoint = startPoint;
+        this.poundage = poundage;
     }
 
     /**
      * 平仓
      *
+     * @param endPoint 平仓点位
+     * @param endTime  平仓时间
      * @return
      */
-    public boolean offsetTransaction(BigDecimal endPoint, String endTime) {
+    public boolean offsetTransaction(BigDecimal endPoint, String endTime, BigDecimal price) {
         this.endPoint = endPoint;
         this.endTime = endTime;
         this.status = 1;
+
+        // 计算盈亏
+        BigDecimal point = null;
+        if (this.bbi == 1) {
+            point = endPoint.subtract(this.startPoint);
+        } else {
+            point = this.startPoint.subtract(this.endPoint);
+        }
+        this.loss = point.multiply(price).subtract(poundage).multiply(new BigDecimal(number));
+
         return true;
     }
 }

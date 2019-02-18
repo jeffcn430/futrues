@@ -5,11 +5,29 @@
 <div class="x-body">
     <form class="layui-form">
         <div class="layui-form-item">
+            <label for="platform" class="layui-form-label">
+                <span class="x-red">*</span>平台
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="platform" name="platform" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label for="type" class="layui-form-label">
                 <span class="x-red">*</span>品种
             </label>
             <div class="layui-input-inline">
                 <input type="text" id="type" name="type" required="" lay-verify="required"
+                       autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="bbi" class="layui-form-label">
+                <span class="x-red">*</span>方向
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="bbi" name="bbi" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>
@@ -23,11 +41,11 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="bbi" class="layui-form-label">
-                <span class="x-red">*</span>方向
+            <label for="number" class="layui-form-label">
+                <span class="x-red">*</span>开仓数量
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="bbi" name="bbi" required="" lay-verify="required"
+                <input type="text" id="number" name="number" required="" lay-verify="required"
                        autocomplete="off" class="layui-input">
             </div>
         </div>

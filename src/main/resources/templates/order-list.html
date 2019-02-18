@@ -19,7 +19,7 @@
         <!--</form>-->
     <!--</div>-->
     <xblock>
-        <button class="layui-btn" onclick="x_admin_show('建仓','order-add', 600, 400)"><i class="layui-icon"></i>建仓</button>
+        <button class="layui-btn" onclick="x_admin_show('建仓','order-add', 600, 450)"><i class="layui-icon"></i>建仓</button>
     </xblock>
     <table id="orders-table-page" class="layui-table"></table>
 </div>
@@ -35,11 +35,12 @@
                     {field: 'id', width: 80, title: 'ID'}
                     , {field: 'type', width: 100, title: '品种'}
                     , {field: 'bbi', width: 80, title: '方向'}
+                    , {field: 'number', width: 80, title: '数量'}
                     , {field: 'startPoint', width: 200, title: '开仓点位'}
                     , {field: 'startTime', width: 200, title: '开仓时间'}
                     , {field: 'endPoint', width: 200, title: '平仓点位'}
                     , {field: 'endTime', width: 200, title: '平仓时间'}
-                    , {field: 'classify', width: 200, title: '手续费'}
+                    , {field: 'poundage', width: 200, title: '手续费'}
                     , {field: 'loss', width: 200, title: '盈亏'}
                     , {field: 'status', width: 130, title: '操作', templet: '#checkboxTpl'}
                 ]

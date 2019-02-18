@@ -31,22 +31,24 @@ public class OrderController {
      */
     @RequestMapping(value = "orders", method = RequestMethod.GET)
     public ResultData ordersList() {
-        List<Orders> ordersList=  this.ordersService.getOrdersList();
+        List<Orders> ordersList = this.ordersService.getOrdersList();
         return new ResultData(0, "成功", ordersList, ordersList.size());
     }
 
     /**
      * 建仓
      *
+     * @param platform
      * @param type
      * @param bbi
+     * @param number
      * @param startPoint
      * @param startTime
      * @return
      */
     @RequestMapping(value = "orders/openingTransaction")
-    public ResultData openingTransaction(Integer type, Integer bbi, BigDecimal startPoint, String startTime) {
-        this.ordersService.openingTransaction(type, bbi, startPoint, startTime);
+    public ResultData openingTransaction(Integer platform, Integer type, Integer bbi, Integer number, BigDecimal startPoint, String startTime) {
+        this.ordersService.openingTransaction(platform, type, bbi, number, startPoint, startTime);
         return new ResultData();
     }
 

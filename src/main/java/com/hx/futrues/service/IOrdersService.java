@@ -24,7 +24,7 @@ public interface IOrdersService {
      *
      * @return
      */
-    boolean openingTransaction(Integer type, Integer bbi, BigDecimal startPoint, String startTime);
+    boolean openingTransaction(Integer platform, Integer type, Integer bbi, Integer number, BigDecimal startPoint, String time);
 
     /**
      * 平仓
