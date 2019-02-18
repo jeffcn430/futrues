@@ -9,7 +9,9 @@
                 <span class="x-red">*</span>平台
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="platform" name="platform" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                <select id="platform" name="platform"  lay-verify="required">
+                    <option value="1">逸富</option>
+                </select>
             </div>
         </div>
         <div class="layui-form-item">
@@ -17,7 +19,9 @@
                 <span class="x-red">*</span>品种
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="type" name="type" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                <select id="type" name="type" lay-verify="required">
+                    <option value="1">德指</option>
+                </select>
             </div>
         </div>
         <div class="layui-form-item">
@@ -25,7 +29,10 @@
                 <span class="x-red">*</span>方向
             </label>
             <div class="layui-input-inline">
-                <input type="text" id="bbi" name="bbi" required="" lay-verify="required" autocomplete="off" class="layui-input">
+                <select id="bbi" name="bbi" lay-verify="required">
+                    <option value="1">多</option>
+                    <option value="2">空</option>
+                </select>
             </div>
         </div>
         <div class="layui-form-item">
@@ -86,9 +93,9 @@
 
         //监听提交
         form.on('submit(add)', function (data) {
-            $.post("/orders/openingTransaction",data.field,function(res){
-                if(res.code == 0){
-                    layer.alert("确定添加", function () {
+            layer.alert("确定添加", function () {
+                $.post("/orders/openingTransaction",data.field,function(res){
+                    if(res.code == 0){
                         // 弹出成功提示
                         parent.layer.msg(res.msg, {icon: 6, time: 2000});
                         // 刷新表格
@@ -97,12 +104,12 @@
                         var index = parent.layer.getFrameIndex(window.name);
                         //关闭当前frame
                         parent.layer.close(index);
-                    });
-                }else{
-                    // 弹出失败提示
-                    layer.msg(res.msg, {time: 2000});
-                }
-            },'json');
+                    }else{
+                        // 弹出失败提示
+                        layer.msg(res.msg, {time: 2000});
+                    }
+                }, "json");
+            });
             return false;
         });
 

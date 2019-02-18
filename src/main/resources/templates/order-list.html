@@ -33,8 +33,9 @@
             , cols: [
                 [
                     {field: 'id', width: 80, title: 'ID'}
-                    , {field: 'type', width: 100, title: '品种'}
-                    , {field: 'bbi', width: 120, title: '方向'}
+                    , {field: 'platform', width: 100, title: '平台', templet: '<div>{{ d.platform.name}}</div>'}
+                    , {field: 'variety', width: 100, title: '品种', templet: '<div>{{ d.variety.varietyBase.name}}</div>'}
+                    , {field: 'bbi', width: 120, title: '方向', templet: '#bbi'}
                     , {field: 'number', width: 120, title: '数量'}
                     , {field: 'startPoint', title: '开仓点位'}
                     , {field: 'startTime', title: '开仓时间'}
@@ -54,6 +55,13 @@
 <!-- 表格内部平仓按钮-->
 <script type="text/html" id="checkboxTpl">
     <a class="layui-btn layui-btn-xs" lay-event="edit" onclick="x_admin_show('平仓','order-offset', 600, 400)">平仓</a>
+</script>
+<script type="text/html" id="bbi">
+    {{# if(d.bbi == 1){ }}
+        买入
+    {{# }else{ }}
+        卖出
+    {{# } }}
 </script>
 </body>
 </html>

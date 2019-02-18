@@ -62,9 +62,9 @@
 
         //监听提交
         form.on('submit(add)', function (data) {
-            $.post("/orders/offsetTransaction",data.field,function(res){
-                if(res.code == 0){
-                    layer.alert("确定添加", function () {
+            layer.alert("确定添加", function () {
+                $.post("/orders/offsetTransaction",data.field,function(res){
+                    if(res.code == 0){
                         // 弹出成功提示
                         parent.layer.msg(res.msg, {icon: 6, time: 2000});
                         // 刷新表格
@@ -73,12 +73,12 @@
                         var index = parent.layer.getFrameIndex(window.name);
                         //关闭当前frame
                         parent.layer.close(index);
-                    });
-                }else{
-                    // 弹出失败提示
-                    layer.msg(res.msg, {time: 2000});
-                }
-            },'json');
+                    }else{
+                        // 弹出失败提示
+                        layer.msg(res.msg, {time: 2000});
+                    }
+                }, "json");
+            });
             return false;
         });
 

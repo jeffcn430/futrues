@@ -2,10 +2,13 @@ package com.hx.futrues.entity;
 
 import lombok.Data;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -28,11 +31,15 @@ public class Orders implements Serializable {
     /**
      * 交易平台
      */
-    private int platform;
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "platformId", referencedColumnName = "id")
+    private Platform platform;
     /**
      * 品种
      */
-    private String type;
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "varietyId", referencedColumnName = "id")
+    private Variety variety;
     /**
      * 买卖方向
      */
@@ -78,21 +85,20 @@ public class Orders implements Serializable {
      * 开仓
      *
      * @param platform   平台
-     * @param type       品种
+     * @param variety    品种
      * @param bbi        方向
      * @param number     数量
      * @param startTime  开仓时间
      * @param startPoint 开仓点位
-     * @param poundage   手续费
      */
-    public Orders(Integer platform, String type, Integer bbi, Integer number, String startTime, BigDecimal startPoint, BigDecimal poundage) {
+    public Orders(Platform platform, Variety variety, Integer bbi, Integer number, String startTime, BigDecimal startPoint) {
         this.platform = platform;
         this.bbi = bbi;
-        this.type = type;
+        this.variety = variety;
         this.number = number;
         this.startTime = startTime;
         this.startPoint = startPoint;
-        this.poundage = poundage.multiply(new BigDecimal(number));
+        this.poundage = variety.getPoundage().multiply(new BigDecimal(number));
     }
 
     /**
@@ -102,19 +108,22 @@ public class Orders implements Serializable {
      * @param endTime  平仓时间
      * @return
      */
-    public boolean offsetTransaction(BigDecimal endPoint, String endTime, BigDecimal price) {
+    public boolean offsetTransaction(BigDecimal endPoint, String endTime) {
         this.endPoint = endPoint;
         this.endTime = endTime;
         this.status = 1;
+
+        //计算手续费
+        this.poundage = this.poundage.multiply(this.POUNDAGE_X);
 
         // 计算盈亏
         BigDecimal point;
         if (this.bbi == 1) {
             point = endPoint.subtract(this.startPoint);
         } else {
-            point = this.startPoint.subtract(this.endPoint);
+            point = this.startPoint.subtract(endPoint);
         }
-        this.loss = point.multiply(price).multiply(new BigDecimal(number)).subtract(poundage);
+        this.loss = point.multiply(this.variety.getVarietyBase().getPrice()).multiply(new BigDecimal(number)).subtract(poundage);
 
         return true;
     }
