@@ -32,7 +32,7 @@ public class Orders implements Serializable {
     /**
      * 品种
      */
-    private Integer type;
+    private String type;
     /**
      * 买卖方向
      */
@@ -78,21 +78,21 @@ public class Orders implements Serializable {
      * 开仓
      *
      * @param platform   平台
-     * @param bbi        方向
      * @param type       品种
+     * @param bbi        方向
      * @param number     数量
      * @param startTime  开仓时间
      * @param startPoint 开仓点位
      * @param poundage   手续费
      */
-    public Orders(Integer platform, Integer bbi, Integer type, Integer number, String startTime, BigDecimal startPoint, BigDecimal poundage) {
+    public Orders(Integer platform, String type, Integer bbi, Integer number, String startTime, BigDecimal startPoint, BigDecimal poundage) {
         this.platform = platform;
         this.bbi = bbi;
         this.type = type;
         this.number = number;
         this.startTime = startTime;
         this.startPoint = startPoint;
-        this.poundage = poundage;
+        this.poundage = poundage.multiply(new BigDecimal(number));
     }
 
     /**
@@ -108,13 +108,13 @@ public class Orders implements Serializable {
         this.status = 1;
 
         // 计算盈亏
-        BigDecimal point = null;
+        BigDecimal point;
         if (this.bbi == 1) {
             point = endPoint.subtract(this.startPoint);
         } else {
             point = this.startPoint.subtract(this.endPoint);
         }
-        this.loss = point.multiply(price).subtract(poundage).multiply(new BigDecimal(number));
+        this.loss = point.multiply(price).multiply(new BigDecimal(number)).subtract(poundage);
 
         return true;
     }

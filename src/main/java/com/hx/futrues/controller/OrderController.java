@@ -1,6 +1,7 @@
 package com.hx.futrues.controller;
 
 import com.hx.futrues.entity.Orders;
+import com.hx.futrues.exception.FutrueException;
 import com.hx.futrues.service.IOrdersService;
 import com.hx.futrues.utils.ResultData;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -47,7 +48,7 @@ public class OrderController {
      * @return
      */
     @RequestMapping(value = "orders/openingTransaction")
-    public ResultData openingTransaction(Integer platform, Integer type, Integer bbi, Integer number, BigDecimal startPoint, String startTime) {
+    public ResultData openingTransaction(Integer platform, Integer type, Integer bbi, Integer number, BigDecimal startPoint, String startTime) throws FutrueException {
         this.ordersService.openingTransaction(platform, type, bbi, number, startPoint, startTime);
         return new ResultData();
     }

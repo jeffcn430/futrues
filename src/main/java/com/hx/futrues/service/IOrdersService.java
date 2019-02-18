@@ -1,6 +1,7 @@
 package com.hx.futrues.service;
 
 import com.hx.futrues.entity.Orders;
+import com.hx.futrues.exception.FutrueException;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -24,7 +25,7 @@ public interface IOrdersService {
      *
      * @return
      */
-    boolean openingTransaction(Integer platform, Integer type, Integer bbi, Integer number, BigDecimal startPoint, String time);
+    boolean openingTransaction(Integer platform, Integer type, Integer bbi, Integer number, BigDecimal startPoint, String time) throws FutrueException;
 
     /**
      * 平仓
