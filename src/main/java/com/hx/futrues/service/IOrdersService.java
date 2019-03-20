@@ -33,4 +33,12 @@ public interface IOrdersService {
      * @return
      */
     boolean offsetTransaction(Integer id, BigDecimal endPoint, String endTime);
+
+    /**
+     * 获取统计后的订单信息
+     *
+     * @param type
+     * @return
+     */
+    List<Orders> getOrdersCount(Integer type);
 }

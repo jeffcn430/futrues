@@ -10,7 +10,7 @@
             </label>
             <div class="layui-input-inline">
                 <select id="platform" name="platform"  lay-verify="required">
-                    <option value="1">逸富</option>
+                    <option th:each="platform:${platforms}" th:value="${platform.getId()}" th:text="${platform.getName()}"></option>
                 </select>
             </div>
         </div>
@@ -125,13 +125,5 @@
         };
     });
 </script>
-<script>var _hmt = _hmt || [];
-(function () {
-    var hm = document.createElement("script");
-    hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
-    var s = document.getElementsByTagName("script")[0];
-    s.parentNode.insertBefore(hm, s);
-})();</script>
 </body>
-
 </html>

@@ -62,4 +62,9 @@ public class OrdersServiceImpl implements IOrdersService {
         this.ordersRepository.save(orders);
         return true;
     }
+
+    @Override
+    public List<Orders> getOrdersCount(Integer type) {
+        return null;
+    }
 }

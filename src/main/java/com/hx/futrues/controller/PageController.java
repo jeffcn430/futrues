@@ -1,11 +1,23 @@
 package com.hx.futrues.controller;
 
+import com.hx.futrues.entity.Platform;
+import com.hx.futrues.service.IPlatformService;
+import com.hx.futrues.service.IVarietyService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
+import java.util.TreeMap;
+
 @Controller
 public class PageController {
+    @Autowired
+    private IPlatformService platformService;
+    @Autowired
+    private IVarietyService varietyService;
+
     /**
      * 首页
      *
@@ -38,6 +50,14 @@ public class PageController {
      */
     @GetMapping("order-add")
     public ModelAndView orderAdd(ModelAndView model) {
+        // 平台下拉列表
+        List<Platform> platforms = platformService.platforms();
+        model.addObject("platforms", platforms);
+
+        // 期货品种
+        model.addObject(" varietys", varietyService.findAllByPlatformId(platforms.get(0).getId()));
+
+        // 显示页面
         model.setViewName("order-add");
         return model;
     }
