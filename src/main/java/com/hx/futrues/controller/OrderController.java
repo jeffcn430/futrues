@@ -62,8 +62,8 @@ public class OrderController {
      * @return
      */
     @RequestMapping(value = "orders/offsetTransaction")
-    public ResultData offsetTransaction(Integer orderId, BigDecimal endPoint, String endTime) {
-        this.ordersService.offsetTransaction(orderId, endPoint, endTime);
+    public ResultData offsetTransaction(Integer orderId, BigDecimal endPoint, String endTime, BigDecimal maxPoint, BigDecimal minPoint, String desc)  throws FutrueException{
+        this.ordersService.offsetTransaction(orderId, endPoint, endTime, maxPoint, minPoint, desc);
         return new ResultData();
     }
 }

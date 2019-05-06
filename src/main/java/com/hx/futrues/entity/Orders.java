@@ -76,7 +76,7 @@ public class Orders implements Serializable {
     /**
      * 平仓状态
      */
-    private int status;
+    private Integer status = 0;
 
     public Orders() {
     }
@@ -98,6 +98,7 @@ public class Orders implements Serializable {
         this.number = number;
         this.startTime = startTime;
         this.startPoint = startPoint;
+        //计算手续费
         this.poundage = variety.getPoundage().multiply(new BigDecimal(number));
     }
 
@@ -106,15 +107,15 @@ public class Orders implements Serializable {
      *
      * @param endPoint 平仓点位
      * @param endTime  平仓时间
+     * @param maxPoint 最高点位
+     * @param minPoint 最低点位
+     * @param desc     策略描述
      * @return
      */
-    public boolean offsetTransaction(BigDecimal endPoint, String endTime) {
+    public boolean offsetTransaction(BigDecimal endPoint, String endTime, BigDecimal maxPoint, BigDecimal minPoint, String desc) {
         this.endPoint = endPoint;
         this.endTime = endTime;
         this.status = 1;
-
-        //计算手续费
-        this.poundage = this.poundage.multiply(this.POUNDAGE_X);
 
         // 计算盈亏
         BigDecimal point;
@@ -123,7 +124,10 @@ public class Orders implements Serializable {
         } else {
             point = this.startPoint.subtract(endPoint);
         }
-        this.loss = point.multiply(this.variety.getVarietyBase().getPrice()).multiply(new BigDecimal(number)).subtract(poundage);
+
+        this.loss = point.divide(variety.getVarietyBase().getMinPoint()).multiply(variety.getVarietyBase().getPrice()).multiply(new BigDecimal(number)).subtract(poundage);
+
+//        this.loss = point.multiply(this.variety.getVarietyBase().getPrice()).multiply(new BigDecimal(number)).subtract(poundage);
 
         return true;
     }

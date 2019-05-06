@@ -15,8 +15,8 @@ import java.util.TreeMap;
 public class PageController {
     @Autowired
     private IPlatformService platformService;
-    @Autowired
-    private IVarietyService varietyService;
+//    @Autowired
+//    private IVarietyService varietyService;
 
     /**
      * 首页
@@ -55,7 +55,7 @@ public class PageController {
         model.addObject("platforms", platforms);
 
         // 期货品种
-        model.addObject(" varietys", varietyService.findAllByPlatformId(platforms.get(0).getId()));
+//        model.addObject("varietys", varietyService.findAllByPlatformId(platforms.get(0).getId()));
 
         // 显示页面
         model.setViewName("order-add");

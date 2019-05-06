@@ -32,7 +32,20 @@ public interface IOrdersService {
      *
      * @return
      */
-    boolean offsetTransaction(Integer id, BigDecimal endPoint, String endTime);
+    boolean offsetTransaction(Integer id, BigDecimal endPoint, String endTime, BigDecimal maxPoint, BigDecimal minPoint, String desc) throws FutrueException;
+
+    /**
+     * 创建一个已完成的单子
+     *
+     * @param platformId
+     * @param type
+     * @param bbi
+     * @param number
+     * @param startPoint
+     * @param time
+     * @return
+     */
+    boolean createOrder(Orders orders) throws FutrueException;
 
     /**
      * 获取统计后的订单信息

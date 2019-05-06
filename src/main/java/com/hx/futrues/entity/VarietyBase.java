@@ -23,6 +23,10 @@ public class VarietyBase implements Serializable{
      */
     private String name;
     /**
+     * 最小波动点位
+     */
+    private BigDecimal minPoint;
+    /**
      * 单位价格
      */
     private BigDecimal price;
