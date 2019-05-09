@@ -43,8 +43,8 @@
                     , {field: 'endTime',width: 120, title: '平仓时间'}
                     , {field: 'number', title: '数量'}
                     , {field: 'loss', width: 190, title: '盈亏(盈利-手续费)', templet: '<div>{{ d.loss-d.poundage }}({{ d.loss}}-{{ d.poundage}})</div>'}
-                    , {field: 'loss', width: 190, title: '带盘老师'}
-                    , {field: 'loss', width: 190, title: '备注'}
+                    , {field: 'teacher', width: 190, title: '带盘老师', templet: '<div>{{d.teacher.name}}</div>'}
+                    , {field: 'remarks', width: 190, title: '备注'}
                     , {field: 'status', width: 120, title: '操作', templet: '#checkboxTpl'}
                 ]
             ]

@@ -82,6 +82,8 @@ public class Orders implements Serializable {
     /**
      * 带单老师
      */
+    @ManyToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "teacherId", referencedColumnName = "id")
     private Teacher teacher;
 
     public Orders() {
