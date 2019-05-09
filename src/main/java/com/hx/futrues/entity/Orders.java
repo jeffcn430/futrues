@@ -1,5 +1,6 @@
 package com.hx.futrues.entity;
 
+import com.hx.futrues.utils.MoneyTools;
 import lombok.Data;
 
 import javax.persistence.CascadeType;
@@ -78,6 +79,11 @@ public class Orders implements Serializable {
      */
     private Integer status = 0;
 
+    /**
+     * 带单老师
+     */
+    private Teacher teacher;
+
     public Orders() {
     }
 
@@ -99,7 +105,7 @@ public class Orders implements Serializable {
         this.startTime = startTime;
         this.startPoint = startPoint;
         //计算手续费
-        this.poundage = variety.getPoundage().multiply(new BigDecimal(number));
+        this.poundage = MoneyTools.exchange(variety.getVarietyBase().getMoneyType(), variety.getPoundage().multiply(new BigDecimal(number)));
     }
 
     /**
@@ -125,10 +131,15 @@ public class Orders implements Serializable {
             point = this.startPoint.subtract(endPoint);
         }
 
-        this.loss = point.divide(variety.getVarietyBase().getMinPoint()).multiply(variety.getVarietyBase().getPrice()).multiply(new BigDecimal(number)).subtract(poundage);
-
-//        this.loss = point.multiply(this.variety.getVarietyBase().getPrice()).multiply(new BigDecimal(number)).subtract(poundage);
-
+        this.loss = countLoss(point);
         return true;
+    }
+
+    private BigDecimal countLoss(BigDecimal point) {
+        VarietyBase varietyBase = this.variety.getVarietyBase();
+        point = point.divide(varietyBase.getMinPoint());
+        BigDecimal loss = point.multiply(varietyBase.getPrice()).multiply(new BigDecimal(number));
+        loss = MoneyTools.exchange(varietyBase.getMoneyType(), loss);
+        return loss;
     }
 }

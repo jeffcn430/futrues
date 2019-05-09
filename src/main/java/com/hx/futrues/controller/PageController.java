@@ -2,21 +2,21 @@ package com.hx.futrues.controller;
 
 import com.hx.futrues.entity.Platform;
 import com.hx.futrues.service.IPlatformService;
-import com.hx.futrues.service.IVarietyService;
+import com.hx.futrues.service.ITeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
-import java.util.TreeMap;
 
 @Controller
 public class PageController {
     @Autowired
     private IPlatformService platformService;
-//    @Autowired
-//    private IVarietyService varietyService;
+
+    @Autowired
+    private ITeacherService teacherService;
 
     /**
      * 首页
@@ -71,6 +71,18 @@ public class PageController {
     @GetMapping("order-offset")
     public ModelAndView orderOffset(ModelAndView model) {
         model.setViewName("order-offset");
+        return model;
+    }
+
+    /**
+     * 增加完整单
+     * @param model
+     * @return
+     */
+    @GetMapping("order-finish")
+    public ModelAndView orderFinish(ModelAndView model){
+        model.setViewName("order-finish");
+        model.addObject("teacher", teacherService.getTeacherList());
         return model;
     }
 }

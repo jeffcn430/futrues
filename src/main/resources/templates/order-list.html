@@ -20,6 +20,7 @@
     <!--</div>-->
     <xblock>
         <button class="layui-btn" onclick="x_admin_show('建仓','order-add', 600, 450)"><i class="layui-icon"></i>建仓</button>
+        <button class="layui-btn" onclick="x_admin_show('建仓','order-finish', 800, 600)"><i class="layui-icon"></i>完整单</button>
     </xblock>
     <table id="orders-table-page" class="layui-table"></table>
 </div>
@@ -36,14 +37,14 @@
                     , {field: 'platform', width: 100, title: '平台', templet: '<div>{{ d.platform.name}}</div>'}
                     , {field: 'variety', width: 100, title: '品种', templet: '<div>{{ d.variety.varietyBase.name}}</div>'}
                     , {field: 'bbi', title: '方向', templet: '#bbi'}
-                    , {field: 'number', title: '数量'}
                     , {field: 'startPoint', title: '开仓点位'}
                     , {field: 'startTime', width: 120, title: '开仓时间'}
                     , {field: 'endPoint', title: '平仓点位'}
                     , {field: 'endTime',width: 120, title: '平仓时间'}
-                    , {field: 'poundage', width: 190, title: '手续费'}
-                    , {field: 'loss', width: 190, title: '盈亏'}
-                    , {field: 'loss', width: 190, title: '最大回撤'}
+                    , {field: 'number', title: '数量'}
+                    , {field: 'loss', width: 190, title: '盈亏(盈利-手续费)', templet: '<div>{{ d.loss-d.poundage }}({{ d.loss}}-{{ d.poundage}})</div>'}
+                    , {field: 'loss', width: 190, title: '带盘老师'}
+                    , {field: 'loss', width: 190, title: '备注'}
                     , {field: 'status', width: 120, title: '操作', templet: '#checkboxTpl'}
                 ]
             ]

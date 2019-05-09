@@ -13,16 +13,14 @@
                     <option th:each="platform:${platforms}" th:value="${platform.getId()}" th:text="${platform.getName()}"></option>
                 </select>
             </div>
-        </div>
-        <div class="layui-form-item">
             <label for="type" class="layui-form-label">
                 <span class="x-red">*</span>品种
             </label>
             <div class="layui-input-inline">
                 <select id="type" name="type" lay-verify="required">
-                    <option value="1">德指</option>
                 </select>
             </div>
+
         </div>
         <div class="layui-form-item">
             <label for="bbi" class="layui-form-label">
@@ -34,16 +32,6 @@
                     <option value="2">空</option>
                 </select>
             </div>
-        </div>
-        <div class="layui-form-item">
-            <label for="startPoint" class="layui-form-label">
-                <span class="x-red">*</span>开仓点位
-            </label>
-            <div class="layui-input-inline">
-                <input type="text" id="startPoint" name="startPoint" required="" lay-verify="required" autocomplete="off" class="layui-input">
-            </div>
-        </div>
-        <div class="layui-form-item">
             <label for="number" class="layui-form-label">
                 <span class="x-red">*</span>开仓数量
             </label>
@@ -52,6 +40,12 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label for="startPoint" class="layui-form-label">
+                <span class="x-red">*</span>开仓点位
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="startPoint" name="startPoint" required="" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
             <label for="startTime" class="layui-form-label">
                 <span class="x-red">*</span>开仓时间
             </label>
@@ -60,7 +54,32 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <button  class="layui-btn" lay-filter="add" lay-submit="">建仓</button>
+            <label for="endPoint" class="layui-form-label">
+                <span class="x-red">*</span>平仓点位
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="endPoint" name="endPoint" required="" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+            <label for="endTime" class="layui-form-label">
+                <span class="x-red">*</span>平仓时间
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="endTime" name="endTime" required="" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label for="teacher" class="layui-form-label">
+                <span class="x-red">*</span>指导老师
+            </label>
+            <div class="layui-input-inline">
+                <select id="teacher" name="teacher" lay-verify="required">
+                    <option value="1">多</option>
+                    <option value="2">空</option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <button  class="layui-btn" lay-filter="add" lay-submit="">创建</button>
         </div>
     </form>
 </div>
@@ -72,6 +91,15 @@
         //执行一个laydate实例
         layui.laydate.render({
             elem: '#startTime' //指定元素
+            ,type: 'datetime'
+            ,isInitValue: false
+            ,value: new Date()
+        });
+
+        //执行一个laydate实例
+        layui.laydate.render({
+            elem: '#endTime' //指定元素
+            ,type: 'datetime'
             ,isInitValue: false
             ,value: new Date()
         });
