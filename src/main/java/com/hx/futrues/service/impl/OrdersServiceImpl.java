@@ -2,17 +2,18 @@ package com.hx.futrues.service.impl;
 
 import com.hx.futrues.entity.Orders;
 import com.hx.futrues.entity.Platform;
+import com.hx.futrues.entity.Teacher;
 import com.hx.futrues.entity.Variety;
 import com.hx.futrues.exception.FutrueException;
 import com.hx.futrues.repository.OrdersRepository;
 import com.hx.futrues.repository.PlatformRepository;
+import com.hx.futrues.repository.TeacherRepository;
 import com.hx.futrues.repository.VarietyRepository;
 import com.hx.futrues.service.IOrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -23,6 +24,8 @@ public class OrdersServiceImpl implements IOrdersService {
     private VarietyRepository varietyRepository;
     @Autowired
     private PlatformRepository platformRepository;
+    @Autowired
+    private TeacherRepository teacherRepository;
 
     @Override
     public List<Orders> getOrdersList() {
@@ -53,7 +56,7 @@ public class OrdersServiceImpl implements IOrdersService {
     }
 
     @Override
-    public boolean offsetTransaction(Integer id, BigDecimal endPoint, String endTime, BigDecimal maxPoint, BigDecimal minPoint, String desc)  throws FutrueException{
+    public boolean offsetTransaction(Integer id, BigDecimal endPoint, String endTime, BigDecimal maxPoint, BigDecimal minPoint, String desc) throws FutrueException {
         Orders orders = this.ordersRepository.getOne(id);
         if (orders.getStatus() == 1) {
             return false;
@@ -64,9 +67,31 @@ public class OrdersServiceImpl implements IOrdersService {
     }
 
     @Override
-    public boolean createOrder(Orders orders) throws FutrueException {
-        this.ordersRepository.save(orders);
-        return false;
+    public boolean createOrders(Orders order) throws FutrueException {
+        // 判断平台是否存在
+        Platform platform = this.platformRepository.getOne(order.getPlatform().getId());
+        if (platform == null) {
+            throw new FutrueException("指定平台不存在");
+        }
+
+        // 判断品种是否存在
+        Variety variety = varietyRepository.getOne(order.getVariety().getId());
+        if (variety == null) {
+            throw new FutrueException("指定品种不存在");
+        }
+
+        // 判断带盘老师是否存在
+        Teacher teacher = this.teacherRepository.getOne(order.getTeacher().getId());
+        if (teacher == null) {
+            throw new FutrueException("带盘老师不存在");
+        }
+
+        // 计算盈亏
+        order.countLoss(platform, variety);
+
+        // 保存订单
+        this.ordersRepository.save(order);
+        return true;
     }
 
     @Override

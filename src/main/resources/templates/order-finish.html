@@ -5,19 +5,20 @@
 <div class="x-body">
     <form class="layui-form">
         <div class="layui-form-item">
-            <label for="platform" class="layui-form-label">
+            <label for="platform.id" class="layui-form-label">
                 <span class="x-red">*</span>平台
             </label>
             <div class="layui-input-inline">
-                <select id="platform" name="platform"  lay-verify="required">
+                <select id="platform.id" name="platform.id"  lay-verify="required">
                     <option th:each="platform:${platforms}" th:value="${platform.getId()}" th:text="${platform.getName()}"></option>
                 </select>
             </div>
-            <label for="type" class="layui-form-label">
+            <label for="variety.id" class="layui-form-label">
                 <span class="x-red">*</span>品种
             </label>
             <div class="layui-input-inline">
-                <select id="type" name="type" lay-verify="required">
+                <select id="variety.id" name="variety.id" lay-verify="required">
+                    <option th:each="variety:${varietys}" th:value="${variety.getId()}" th:text="${variety.getVarietyBase().getName()}"></option>
                 </select>
             </div>
 
@@ -54,6 +55,20 @@
             </div>
         </div>
         <div class="layui-form-item">
+            <label for="limited" class="layui-form-label">
+                <span class="x-red">*</span>止损点位
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="limited" name="limited" required="" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+            <label for="stop" class="layui-form-label">
+                <span class="x-red">*</span>止盈点位
+            </label>
+            <div class="layui-input-inline">
+                <input type="text" id="stop" name="stop" required="" lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
             <label for="endPoint" class="layui-form-label">
                 <span class="x-red">*</span>平仓点位
             </label>
@@ -68,13 +83,12 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label for="teacher" class="layui-form-label">
+            <label for="teacher.id" class="layui-form-label">
                 <span class="x-red">*</span>指导老师
             </label>
             <div class="layui-input-inline">
-                <select id="teacher" name="teacher" lay-verify="required">
-                    <option value="1">多</option>
-                    <option value="2">空</option>
+                <select id="teacher.id" name="teacher.id" lay-verify="required">
+                    <option th:each="teacher:${teachers}" th:value="${teacher.getId()}" th:text="${teacher.getName()}"></option>
                 </select>
             </div>
         </div>
@@ -122,7 +136,7 @@
         //监听提交
         form.on('submit(add)', function (data) {
             layer.alert("确定添加", function () {
-                $.post("/orders/openingTransaction",data.field,function(res){
+                $.post("/orders/createOrders",data.field,function(res){
                     if(res.code == 0){
                         // 弹出成功提示
                         parent.layer.msg(res.msg, {icon: 6, time: 2000});

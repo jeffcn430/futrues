@@ -4,20 +4,12 @@ import com.hx.futrues.entity.Orders;
 import com.hx.futrues.exception.FutrueException;
 import com.hx.futrues.service.IOrdersService;
 import com.hx.futrues.utils.ResultData;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -62,8 +54,14 @@ public class OrderController {
      * @return
      */
     @RequestMapping(value = "orders/offsetTransaction")
-    public ResultData offsetTransaction(Integer orderId, BigDecimal endPoint, String endTime, BigDecimal maxPoint, BigDecimal minPoint, String desc)  throws FutrueException{
+    public ResultData offsetTransaction(Integer orderId, BigDecimal endPoint, String endTime, BigDecimal maxPoint, BigDecimal minPoint, String desc) throws FutrueException {
         this.ordersService.offsetTransaction(orderId, endPoint, endTime, maxPoint, minPoint, desc);
+        return new ResultData();
+    }
+
+    @RequestMapping(value = "orders/createOrders")
+    public ResultData createOrders(Orders order) throws FutrueException {
+        this.ordersService.createOrders(order);
         return new ResultData();
     }
 }

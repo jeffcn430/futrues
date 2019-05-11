@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface IVarietyService {
     List<Variety> findAllByPlatformId(Integer platformId);
+
+    List<Variety> findAll();
 }

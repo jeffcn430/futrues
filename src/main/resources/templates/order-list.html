@@ -19,7 +19,7 @@
         <!--</form>-->
     <!--</div>-->
     <xblock>
-        <button class="layui-btn" onclick="x_admin_show('建仓','order-add', 600, 450)"><i class="layui-icon"></i>建仓</button>
+<!--        <button class="layui-btn" onclick="x_admin_show('建仓','order-add', 600, 450)"><i class="layui-icon"></i>建仓</button>-->
         <button class="layui-btn" onclick="x_admin_show('建仓','order-finish', 800, 600)"><i class="layui-icon"></i>完整单</button>
     </xblock>
     <table id="orders-table-page" class="layui-table"></table>
@@ -33,19 +33,21 @@
             , url: 'orders'
             , cols: [
                 [
-                    {field: 'id', width: 80, title: 'ID'}
-                    , {field: 'platform', width: 100, title: '平台', templet: '<div>{{ d.platform.name}}</div>'}
-                    , {field: 'variety', width: 100, title: '品种', templet: '<div>{{ d.variety.varietyBase.name}}</div>'}
-                    , {field: 'bbi', title: '方向', templet: '#bbi'}
-                    , {field: 'startPoint', title: '开仓点位'}
-                    , {field: 'startTime', width: 120, title: '开仓时间'}
-                    , {field: 'endPoint', title: '平仓点位'}
-                    , {field: 'endTime',width: 120, title: '平仓时间'}
-                    , {field: 'number', title: '数量'}
+                    {field: 'id', width: 50, title: 'ID'}
+                    // , {field: 'platform', width: 60, title: '平台', templet: '<div>{{ d.platform.name}}</div>'}
+                    , {field: 'variety', width: 60, title: '品种', templet: '<div>{{ d.variety.varietyBase.name}}</div>'}
+                    , {field: 'bbi', width: 60, title: '方向', templet: '#bbi'}
+                    , {field: 'number', width: 60, title: '数量'}
+                    , {field: 'startPoint', width: 90, title: '开仓点位'}
+                    , {field: 'startTime', width: 160, title: '开仓时间'}
+                    , {field: 'limited', width: 150, title: '止损点位', templet: '<div>{{d.limited}}({{d.limitedLoss-d.poundage}})</div>'}
+                    , {field: 'stop', width: 150, title: '止盈点位', templet: '<div>{{d.stop}}({{d.stopLoss-d.poundage}})</div>'}
+                    , {field: 'endPoint', width: 90, title: '平仓点位'}
+                    , {field: 'endTime',width: 160, title: '平仓时间'}
                     , {field: 'loss', width: 190, title: '盈亏(盈利-手续费)', templet: '<div>{{ d.loss-d.poundage }}({{ d.loss}}-{{ d.poundage}})</div>'}
-                    , {field: 'teacher', width: 190, title: '带盘老师', templet: '<div>{{d.teacher.name}}</div>'}
-                    , {field: 'remarks', width: 190, title: '备注'}
-                    , {field: 'status', width: 120, title: '操作', templet: '#checkboxTpl'}
+                    , {field: 'teacher', width: 100, title: '带盘老师', templet: '<div>{{d.teacher.name}}</div>'}
+                    , {field: 'remarks', title: '备注'}
+                    , {field: 'status', width: 115, title: '操作', templet: '#checkboxTpl'}
                 ]
             ]
             , page: true
@@ -57,12 +59,13 @@
 <!-- 表格内部平仓按钮-->
 <script type="text/html" id="checkboxTpl">
     {{# if(d.status != 1){ }}
-    <a class="layui-btn layui-btn-xs" lay-event="edit" onclick="x_admin_show('平仓','order-offset', 600, 400)">平仓</a>
+    <a class="layui-btn layui-btn-xs" lay-event="edit" onclick="x_admin_show('平仓','order-offset?id={{d.id}}', 600, 400)">平仓</a>
     {{# }else{ }}
     <a class="layui-btn layui-btn-xs" lay-event="edit" onclick="x_admin_show('修改','order-offset', 600, 400)">修改</a>
     {{# }}}
 
-    <a class="layui-btn layui-btn-xs btn-danger radius" lay-event="edit" onclick="x_admin_show('删除','order-offset', 600, 400)">删除</a>
+    <a class="layui-btn layui-btn-xs btn-danger radius" lay-event="edit" onclick="x_admin_show('删除','order-del?id={{d.id}}', 600, 400)">删除</a>
+<!--    <a style="text-decoration:none" class="ml-5" onClick="article_del(this,'10001')" href="javascript:;" title="删除"><i class="Hui-iconfont">&#xe6e2;</i></a>-->
 </script>
 <script type="text/html" id="bbi">
     {{# if(d.bbi == 1){ }}

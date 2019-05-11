@@ -30,6 +30,8 @@ public class VarietyBase implements Serializable{
      * 单位价格
      */
     private BigDecimal price;
-
+    /**
+     * 货币类型
+     */
     private Integer moneyType;
 }

@@ -3,6 +3,7 @@ package com.hx.futrues.controller;
 import com.hx.futrues.entity.Platform;
 import com.hx.futrues.service.IPlatformService;
 import com.hx.futrues.service.ITeacherService;
+import com.hx.futrues.service.IVarietyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +18,10 @@ public class PageController {
 
     @Autowired
     private ITeacherService teacherService;
+
+    @Autowired
+    private IVarietyService varietyService;
+
 
     /**
      * 首页
@@ -82,7 +87,9 @@ public class PageController {
     @GetMapping("order-finish")
     public ModelAndView orderFinish(ModelAndView model){
         model.setViewName("order-finish");
-        model.addObject("teacher", teacherService.getTeacherList());
+        model.addObject("platforms", platformService.platforms());
+        model.addObject("teachers", teacherService.getTeacherList());
+        model.addObject("varietys", varietyService.findAll());
         return model;
     }
 }

@@ -4,7 +4,6 @@ import com.hx.futrues.entity.Orders;
 import com.hx.futrues.exception.FutrueException;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public interface IOrdersService {
@@ -37,15 +36,10 @@ public interface IOrdersService {
     /**
      * 创建一个已完成的单子
      *
-     * @param platformId
-     * @param type
-     * @param bbi
-     * @param number
-     * @param startPoint
-     * @param time
      * @return
      */
-    boolean createOrder(Orders orders) throws FutrueException;
+    boolean createOrders(Orders order) throws FutrueException;
+
 
     /**
      * 获取统计后的订单信息

@@ -17,4 +17,9 @@ public class VarietyServiceImpl implements IVarietyService {
     public List<Variety> findAllByPlatformId(Integer platformId) {
         return varietyRepository.findAllByPlatformId(platformId);
     }
+
+    @Override
+    public List<Variety> findAll() {
+        return this.varietyRepository.findAll();
+    }
 }

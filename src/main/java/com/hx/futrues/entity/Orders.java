@@ -3,16 +3,10 @@ package com.hx.futrues.entity;
 import com.hx.futrues.utils.MoneyTools;
 import lombok.Data;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 /**
  * 订单明细
@@ -52,11 +46,11 @@ public class Orders implements Serializable {
     /**
      * 建仓时间
      */
-    private String startTime;
+    private LocalDateTime startTime;
     /**
      * 平仓时间
      */
-    private String endTime;
+    private LocalDateTime endTime;
     /**
      * 开仓点位
      */
@@ -80,6 +74,24 @@ public class Orders implements Serializable {
     private Integer status = 0;
 
     /**
+     * 止盈点位
+     */
+    private BigDecimal limited = BigDecimal.ZERO;
+    /**
+     * 止盈盈亏
+     */
+    private BigDecimal limitedLoss;
+
+    /**
+     * 止损点位
+     */
+    private BigDecimal stop = BigDecimal.ZERO;
+    /**
+     * 止损盈亏
+     */
+    private BigDecimal stopLoss;
+
+    /**
      * 带单老师
      */
     @ManyToOne(cascade = CascadeType.DETACH)
@@ -100,14 +112,14 @@ public class Orders implements Serializable {
      * @param startPoint 开仓点位
      */
     public Orders(Platform platform, Variety variety, Integer bbi, Integer number, String startTime, BigDecimal startPoint) {
-        this.platform = platform;
-        this.bbi = bbi;
-        this.variety = variety;
-        this.number = number;
-        this.startTime = startTime;
-        this.startPoint = startPoint;
-        //计算手续费
-        this.poundage = MoneyTools.exchange(variety.getVarietyBase().getMoneyType(), variety.getPoundage().multiply(new BigDecimal(number)));
+//        this.platform = platform;
+//        this.bbi = bbi;
+//        this.variety = variety;
+//        this.number = number;
+//        this.startTime = startTime;
+//        this.startPoint = startPoint;
+//        //计算手续费
+//        this.poundage = MoneyTools.exchange(variety.getVarietyBase().getMoneyType(), variety.getPoundage().multiply(new BigDecimal(number)));
     }
 
     /**
@@ -121,27 +133,50 @@ public class Orders implements Serializable {
      * @return
      */
     public boolean offsetTransaction(BigDecimal endPoint, String endTime, BigDecimal maxPoint, BigDecimal minPoint, String desc) {
-        this.endPoint = endPoint;
-        this.endTime = endTime;
-        this.status = 1;
-
-        // 计算盈亏
-        BigDecimal point;
-        if (this.bbi == 1) {
-            point = endPoint.subtract(this.startPoint);
-        } else {
-            point = this.startPoint.subtract(endPoint);
-        }
-
-        this.loss = countLoss(point);
+//        this.endPoint = endPoint;
+//        this.endTime = endTime;
+//        this.status = 1;
+//
+//        // 计算盈亏
+//        BigDecimal point;
+//        if (this.bbi == 1) {
+//            point = endPoint.subtract(this.startPoint);
+//        } else {
+//            point = this.startPoint.subtract(endPoint);
+//        }
+//
+//        this.loss = countLoss(point);
         return true;
     }
 
-    private BigDecimal countLoss(BigDecimal point) {
-        VarietyBase varietyBase = this.variety.getVarietyBase();
+    public void countLoss(Platform platform, Variety variety){
+        // 设置状态
+        this.status = 1;
+
+        // 计算手续费
+        this.poundage = MoneyTools.exchange(variety.getVarietyBase().getMoneyType(), variety.getPoundage().multiply(new BigDecimal(number)));
+        // 计算平仓盈亏
+        this.loss = this.countLoss(variety.getVarietyBase(), this.startPoint, this.endPoint);
+        // 计算止盈盈亏
+        this.limitedLoss = this.countLoss(variety.getVarietyBase(), this.startPoint, this.limited);
+        // 计算止损盈亏
+        this.stopLoss = this.countLoss(variety.getVarietyBase(), this.startPoint, this.stop);
+    }
+
+    private BigDecimal countLoss(VarietyBase varietyBase, BigDecimal startPoint, BigDecimal endPoint) {
+        // 计算盈亏
+        BigDecimal point;
+        if (this.bbi == 1) {
+            point = endPoint.subtract(startPoint);
+        } else {
+            point = startPoint.subtract(endPoint);
+        }
+
         point = point.divide(varietyBase.getMinPoint());
-        BigDecimal loss = point.multiply(varietyBase.getPrice()).multiply(new BigDecimal(number));
+        BigDecimal loss = point.multiply(varietyBase.getPrice()).multiply(new BigDecimal(this.number));
         loss = MoneyTools.exchange(varietyBase.getMoneyType(), loss);
         return loss;
     }
 }
+
+

@@ -16,9 +16,9 @@ public class Platform implements Serializable {
      */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Integer id;
+    private Integer id;
     /**
      * 平台名称
      */
-    public String name;
+    private String name;
 }
