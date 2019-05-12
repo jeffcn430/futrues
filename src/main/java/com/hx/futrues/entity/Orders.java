@@ -54,10 +54,12 @@ public class Orders implements Serializable {
     /**
      * 开仓点位
      */
+    @Column(scale=4)
     private BigDecimal startPoint;
     /**
      * 平仓点位
      */
+    @Column(scale=4)
     private BigDecimal endPoint;
     /**
      * 手续费
@@ -80,16 +82,17 @@ public class Orders implements Serializable {
     /**
      * 止盈盈亏
      */
-    private BigDecimal limitedLoss;
+    private BigDecimal limitedLoss = BigDecimal.ZERO;
 
     /**
      * 止损点位
      */
+    @Column(scale=4)
     private BigDecimal stop = BigDecimal.ZERO;
     /**
      * 止损盈亏
      */
-    private BigDecimal stopLoss;
+    private BigDecimal stopLoss = BigDecimal.ZERO;
 
     /**
      * 带单老师
@@ -157,10 +160,21 @@ public class Orders implements Serializable {
         this.poundage = MoneyTools.exchange(variety.getVarietyBase().getMoneyType(), variety.getPoundage().multiply(new BigDecimal(number)));
         // 计算平仓盈亏
         this.loss = this.countLoss(variety.getVarietyBase(), this.startPoint, this.endPoint);
+
         // 计算止盈盈亏
-        this.limitedLoss = this.countLoss(variety.getVarietyBase(), this.startPoint, this.limited);
+        if(this.limited == null){
+            this.limited = BigDecimal.ZERO;
+        }
+        if(this.limited != BigDecimal.ZERO){
+            this.limitedLoss = this.countLoss(variety.getVarietyBase(), this.startPoint, this.limited);
+        }
         // 计算止损盈亏
-        this.stopLoss = this.countLoss(variety.getVarietyBase(), this.startPoint, this.stop);
+        if(this.stop == null){
+            this.stop = BigDecimal.ZERO;
+        }
+        if(this.stop != BigDecimal.ZERO){
+            this.stopLoss = this.countLoss(variety.getVarietyBase(), this.startPoint, this.stop);
+        }
     }
 
     private BigDecimal countLoss(VarietyBase varietyBase, BigDecimal startPoint, BigDecimal endPoint) {

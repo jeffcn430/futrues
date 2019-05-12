@@ -92,4 +92,10 @@ public class PageController {
         model.addObject("varietys", varietyService.findAll());
         return model;
     }
+
+    @GetMapping("echarts1")
+    public ModelAndView echarts1(ModelAndView model){
+        model.setViewName("echarts1");
+        return model;
+    }
 }

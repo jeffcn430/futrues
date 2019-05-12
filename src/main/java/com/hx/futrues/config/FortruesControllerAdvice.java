@@ -1,5 +1,6 @@
 package com.hx.futrues.config;
 
+import com.hx.futrues.common.Constants;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -17,19 +18,19 @@ public class FortruesControllerAdvice {
         binder.registerCustomEditor(LocalDate.class, new PropertyEditorSupport() {
             @Override
             public void setAsText(String text) throws IllegalArgumentException {
-                setValue(LocalDate.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+                setValue(LocalDate.parse(text, DateTimeFormatter.ofPattern(Constants.DEFAULT_DATE_FORMAT)));
             }
         });
         binder.registerCustomEditor(LocalDateTime.class, new PropertyEditorSupport() {
             @Override
             public void setAsText(String text) throws IllegalArgumentException {
-                setValue(LocalDateTime.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+                setValue(LocalDateTime.parse(text, DateTimeFormatter.ofPattern(Constants.DEFAULT_DATE_TIME_FORMAT)));
             }
         });
         binder.registerCustomEditor(LocalTime.class, new PropertyEditorSupport() {
             @Override
             public void setAsText(String text) throws IllegalArgumentException {
-                setValue(LocalTime.parse(text, DateTimeFormatter.ofPattern("HH:mm:ss")));
+                setValue(LocalTime.parse(text, DateTimeFormatter.ofPattern(Constants.DEFAULT_TIME_FORMAT)));
             }
         });
     }

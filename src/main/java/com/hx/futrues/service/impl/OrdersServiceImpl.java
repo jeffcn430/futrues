@@ -1,14 +1,9 @@
 package com.hx.futrues.service.impl;
 
-import com.hx.futrues.entity.Orders;
-import com.hx.futrues.entity.Platform;
-import com.hx.futrues.entity.Teacher;
-import com.hx.futrues.entity.Variety;
+import com.hx.futrues.common.Constants;
+import com.hx.futrues.entity.*;
 import com.hx.futrues.exception.FutrueException;
-import com.hx.futrues.repository.OrdersRepository;
-import com.hx.futrues.repository.PlatformRepository;
-import com.hx.futrues.repository.TeacherRepository;
-import com.hx.futrues.repository.VarietyRepository;
+import com.hx.futrues.repository.*;
 import com.hx.futrues.service.IOrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +21,8 @@ public class OrdersServiceImpl implements IOrdersService {
     private PlatformRepository platformRepository;
     @Autowired
     private TeacherRepository teacherRepository;
+    @Autowired
+    private CashFlowRepository cashFlowRepository;
 
     @Override
     public List<Orders> getOrdersList() {
@@ -91,6 +88,10 @@ public class OrdersServiceImpl implements IOrdersService {
 
         // 保存订单
         this.ordersRepository.save(order);
+        //创建资金流水并保存
+        CashFlow cash = new CashFlow(Constants.CASH_TYPE_OFFSET, order.getLoss().subtract(order.getPoundage()), order.getId(), order.getEndTime());
+        this.cashFlowRepository.save(cash);
+
         return true;
     }
 
