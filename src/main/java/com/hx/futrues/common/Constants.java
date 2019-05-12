@@ -14,6 +14,8 @@ public class Constants {
     // 资金流水类型
     /** 入金 */
     public static final int CASH_TYPE_IN = 1;
+    /** 出金 */
     public static final int CASH_TYPE_OUT = 2;
+    /** 平仓 */
     public static final int CASH_TYPE_OFFSET = 3;
 }

@@ -78,7 +78,7 @@ public class OrdersServiceImpl implements IOrdersService {
         }
 
         // 判断品种是否与平台对应
-        if(!platform.getId().equals(variety.getPlatformId())){
+        if (!platform.getId().equals(variety.getPlatformId())) {
             throw new FutrueException("指定品种不存在");
         }
 
@@ -89,9 +89,9 @@ public class OrdersServiceImpl implements IOrdersService {
         }
 
         // 判断是否自己做单
-        if(teacher.getId() != 1){
+        if (teacher.getId() != 1) {
             // 判断带盘老师是否与平台对应
-            if(!platform.getId().equals(teacher.getPlatformId())){
+            if (!platform.getId().equals(teacher.getPlatformId())) {
                 throw new FutrueException("带盘老师不存在");
             }
         }
