@@ -13,4 +13,5 @@ public class Teacher implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String name;
+    private Integer platformId;
 }
