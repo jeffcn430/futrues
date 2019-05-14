@@ -5,12 +5,12 @@ import com.hx.futrues.exception.FutrueException;
 import com.hx.futrues.service.IOrdersService;
 import com.hx.futrues.utils.ResultData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 @RestController
 public class OrderController {
@@ -23,9 +23,9 @@ public class OrderController {
      * @return
      */
     @RequestMapping(value = "orders", method = RequestMethod.GET)
-    public ResultData ordersList() {
-        List<Orders> ordersList = this.ordersService.getOrdersList();
-        return new ResultData(0, "成功", ordersList, ordersList.size());
+    public ResultData ordersList(Integer page, Integer limit) {
+        Page<Orders> ordersPage = this.ordersService.getOrdersList(page, limit);
+        return new ResultData(0, "成功", ordersPage.getContent(), (int) ordersPage.getTotalElements());
     }
 
     /**

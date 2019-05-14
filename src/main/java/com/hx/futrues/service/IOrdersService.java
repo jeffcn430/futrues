@@ -2,6 +2,7 @@ package com.hx.futrues.service;
 
 import com.hx.futrues.entity.Orders;
 import com.hx.futrues.exception.FutrueException;
+import org.springframework.data.domain.Page;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -12,12 +13,7 @@ public interface IOrdersService {
      *
      * @return
      */
-    List<Orders> getOrdersList();
-
-    /**
-     * 分页获取
-     */
-    boolean getOrders();
+    Page<Orders> getOrdersList(Integer page, Integer size);
 
     /**
      * 开仓

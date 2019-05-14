@@ -6,10 +6,16 @@ import com.hx.futrues.entity.Platform;
 import com.hx.futrues.entity.Teacher;
 import com.hx.futrues.entity.Variety;
 import com.hx.futrues.exception.FutrueException;
-import com.hx.futrues.repository.*;
+import com.hx.futrues.repository.OrdersRepository;
+import com.hx.futrues.repository.PlatformRepository;
+import com.hx.futrues.repository.TeacherRepository;
+import com.hx.futrues.repository.VarietyRepository;
 import com.hx.futrues.service.IOrdersService;
 import com.hx.futrues.service.IWalletService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -31,14 +37,8 @@ public class OrdersServiceImpl implements IOrdersService {
 
 
     @Override
-    public List<Orders> getOrdersList() {
-        return this.ordersRepository.findAll();
-    }
-
-    @Override
-    public boolean getOrders() {
-        this.ordersRepository.findAll();
-        return false;
+    public Page<Orders> getOrdersList(Integer page, Integer size) {
+        return this.ordersRepository.findAll(PageRequest.of(page - 1, size, new Sort(Sort.Direction.DESC, "id")));
     }
 
     @Override
