@@ -54,12 +54,10 @@ public class Orders implements Serializable {
     /**
      * 开仓点位
      */
-    @Column(scale=4)
     private BigDecimal startPoint;
     /**
      * 平仓点位
      */
-    @Column(scale=4)
     private BigDecimal endPoint;
     /**
      * 手续费
@@ -87,7 +85,6 @@ public class Orders implements Serializable {
     /**
      * 止损点位
      */
-    @Column(scale=4)
     private BigDecimal stop = BigDecimal.ZERO;
     /**
      * 止损盈亏
@@ -100,6 +97,11 @@ public class Orders implements Serializable {
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "teacherId", referencedColumnName = "id")
     private Teacher teacher;
+
+    /**
+     * 备注
+     */
+    private String remarks;
 
     public Orders() {
     }

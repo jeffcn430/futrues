@@ -26,10 +26,11 @@ public class CashFlow implements Serializable {
     public CashFlow() {
     }
 
-    public CashFlow(Integer type, BigDecimal cash, Integer projectId, LocalDateTime time) {
+    public CashFlow(Integer type, BigDecimal cash, Integer projectId, LocalDateTime time, BigDecimal poorCapital) {
         this.type = type;
         this.cash = cash;
         this.projectId = projectId;
         this.time = time;
+        this.poorCapital = poorCapital;
     }
 }
