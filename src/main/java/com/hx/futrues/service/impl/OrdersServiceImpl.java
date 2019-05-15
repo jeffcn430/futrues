@@ -105,6 +105,8 @@ public class OrdersServiceImpl implements IOrdersService {
         // 计算盈亏
         order.countLoss(platform, variety);
 
+        this.ordersRepository.save(order);
+
         // 修改钱包金额
         this.walletService.changeCash(platform, Constants.CASH_TYPE_OFFSET, order.getLoss().subtract(order.getPoundage()), order.getId(), order.getEndTime());
 

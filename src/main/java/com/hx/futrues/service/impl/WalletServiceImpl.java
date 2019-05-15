@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class WalletServiceImpl implements IWalletService {
@@ -35,5 +36,10 @@ public class WalletServiceImpl implements IWalletService {
         this.cashFlowRepository.save(cashFlow);
 
         return true;
+    }
+
+    @Override
+    public List<Object[]> getCount() {
+        return this.cashFlowRepository.getCount();
     }
 }

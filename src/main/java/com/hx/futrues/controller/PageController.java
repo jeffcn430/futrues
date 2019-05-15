@@ -93,9 +93,57 @@ public class PageController {
         return model;
     }
 
+    @GetMapping("echarts11")
+    public ModelAndView echarts11(ModelAndView model){
+        model.setViewName("echarts11");
+        return model;
+    }
+
     @GetMapping("echarts1")
     public ModelAndView echarts1(ModelAndView model){
         model.setViewName("echarts1");
+        return model;
+    }
+
+    @GetMapping("echarts2")
+    public ModelAndView echarts2(ModelAndView model){
+        model.setViewName("echarts2");
+        return model;
+    }
+
+    @GetMapping("echarts3")
+    public ModelAndView echarts3(ModelAndView model){
+        model.setViewName("echarts3");
+        return model;
+    }
+
+    @GetMapping("echarts4")
+    public ModelAndView echarts4(ModelAndView model){
+        model.setViewName("echarts4");
+        return model;
+    }
+
+    @GetMapping("echarts5")
+    public ModelAndView echarts5(ModelAndView model){
+        model.setViewName("echarts5");
+        return model;
+    }
+
+    @GetMapping("echarts6")
+    public ModelAndView echarts6(ModelAndView model){
+        model.setViewName("echarts6");
+        return model;
+    }
+
+    @GetMapping("echarts7")
+    public ModelAndView echarts7(ModelAndView model){
+        model.setViewName("echarts7");
+        return model;
+    }
+
+    @GetMapping("echarts8")
+    public ModelAndView echarts8(ModelAndView model){
+        model.setViewName("echarts8");
         return model;
     }
 }
