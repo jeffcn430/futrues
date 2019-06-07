@@ -18,4 +18,7 @@ public interface CashFlowRepository extends JpaRepository<CashFlow, Integer> {
             "left join cash_flow b on a.maxId = b.id"
     , nativeQuery = true)
     List<Object[]> getCount();
+
+
+    CashFlow findByProjectId(Integer projectId);
 }

@@ -105,6 +105,7 @@ public class OrdersServiceImpl implements IOrdersService {
         // 计算盈亏
         order.countLoss(platform, variety);
 
+        // 保存订单
         this.ordersRepository.save(order);
 
         // 修改钱包金额
@@ -116,5 +117,22 @@ public class OrdersServiceImpl implements IOrdersService {
     @Override
     public List<Orders> getOrdersCount(Integer type) {
         return null;
+    }
+
+    @Override
+    public boolean deleteOrders(Integer id) throws FutrueException {
+        // 获取订单
+        Orders order = this.ordersRepository.getOne(id);
+        if(order == null){
+            return true;
+        }
+
+        // 删除订单
+        this.ordersRepository.deleteById(order.getId());
+
+        // 冲销订单的流水记录
+        this.walletService.deleteOrders(order.getId());
+
+        return true;
     }
 }

@@ -18,4 +18,15 @@ public class Constants {
     public static final int CASH_TYPE_OUT = 2;
     /** 平仓 */
     public static final int CASH_TYPE_OFFSET = 3;
+    /** 删除订单冲销 */
+    public static final int CASH_TYPE_WRITE_OFF = 4;
+
+
+    //货币类型
+    /** 美元 */
+    public static final int MONEY_TYPE_USD = 1;
+    /** 欧元 */
+    public static final int MONEY_TYPE_EUR = 2;
+    /** 港币 */
+    public static final int MONEY_TYPE_HKD = 3;
 }

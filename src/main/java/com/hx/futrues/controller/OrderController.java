@@ -64,4 +64,9 @@ public class OrderController {
         this.ordersService.createOrders(order);
         return new ResultData();
     }
+
+    @RequestMapping(value = "orders/deleteOrders")
+    public ResultData deleteOrders(){
+        return new ResultData();
+    }
 }

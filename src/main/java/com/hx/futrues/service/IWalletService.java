@@ -1,6 +1,8 @@
 package com.hx.futrues.service;
 
+import com.hx.futrues.entity.CashCount;
 import com.hx.futrues.entity.Platform;
+import com.hx.futrues.exception.FutrueException;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
@@ -25,4 +27,8 @@ public interface IWalletService {
     boolean changeCash(Platform platform, Integer type, BigDecimal cash, Integer projectId, LocalDateTime time);
 
     List<Object[]> getCount();
+
+    List<CashCount> getCashCount();
+
+    boolean deleteOrders(Integer orderId) throws FutrueException;
 }

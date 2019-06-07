@@ -18,7 +18,19 @@ public class Wallet {
      * 钱包id
      */
     private Integer id;
+    /**
+     * 当前持有现金
+     */
     private BigDecimal cash;
+    /**
+     * 成本
+     */
+    private BigDecimal cost;
+    /**
+     * 盈利
+     */
+    private BigDecimal profit;
+
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "platformId", referencedColumnName = "id")
     private Platform platform;

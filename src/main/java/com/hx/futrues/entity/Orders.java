@@ -159,7 +159,7 @@ public class Orders implements Serializable {
         this.status = 1;
 
         // 计算手续费
-        this.poundage = MoneyTools.exchange(variety.getVarietyBase().getMoneyType(), variety.getPoundage().multiply(new BigDecimal(number)));
+        this.poundage = MoneyTools.exchangeToUSD(variety.getVarietyBase().getMoneyType(), variety.getPoundage().multiply(new BigDecimal(number)));
         // 计算平仓盈亏
         this.loss = this.countLoss(variety.getVarietyBase(), this.startPoint, this.endPoint);
 
@@ -190,7 +190,7 @@ public class Orders implements Serializable {
 
         point = point.divide(varietyBase.getMinPoint());
         BigDecimal loss = point.multiply(varietyBase.getPrice()).multiply(new BigDecimal(this.number));
-        loss = MoneyTools.exchange(varietyBase.getMoneyType(), loss);
+        loss = MoneyTools.exchangeToUSD(varietyBase.getMoneyType(), loss);
         return loss;
     }
 }

@@ -44,4 +44,6 @@ public interface IOrdersService {
      * @return
      */
     List<Orders> getOrdersCount(Integer type);
+
+    boolean deleteOrders(Integer id) throws FutrueException;
 }
