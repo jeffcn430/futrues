@@ -62,7 +62,7 @@ public class WalletServiceImpl implements IWalletService {
 
     @Override
     public List<CashCount> getCashCount() {
-        return this.cashCountRepository.findAll(Sort.by("id"));
+        return this.cashCountRepository.findAll(Sort.by("date"));
     }
 
     @Override

@@ -10,4 +10,6 @@ import java.util.List;
 
 public interface CashCountRepository extends JpaRepository<CashCount, Integer> {
     CashCount findByDateEquals(LocalDate date);
+
+
 }

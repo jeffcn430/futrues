@@ -30,6 +30,10 @@ public class Wallet {
      * 盈利
      */
     private BigDecimal profit;
+    /**
+     * 理想的资金最大回撤
+     */
+    private Integer maxRetreat;
 
     @ManyToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "platformId", referencedColumnName = "id")

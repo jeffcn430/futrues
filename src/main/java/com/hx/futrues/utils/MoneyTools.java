@@ -10,7 +10,7 @@ public class MoneyTools {
             case Constants.MONEY_TYPE_EUR:
                 return money.multiply(new BigDecimal(1.2388));
             case Constants.MONEY_TYPE_HKD:
-                return money.multiply(new BigDecimal(0.135));
+                return money.multiply(new BigDecimal(0.135476));
             default:
                 return money;
         }
